@@ -1,6 +1,7 @@
 package api
 
 import (
+	"database/sql"
 	"fmt"
 
 	"github.com/gofiber/fiber/v3"
@@ -8,11 +9,13 @@ import (
 
 type APIServer struct {
 	port string
+	db   *sql.DB
 }
 
-func NewAPIServer(port int) *APIServer {
+func NewAPIServer(port int, db *sql.DB) *APIServer {
 	return &APIServer{
 		port: fmt.Sprintf(":%d", port),
+		db:   db,
 	}
 }
 

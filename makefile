@@ -1,5 +1,2 @@
-build:
-	go build -o ./bffe/bin/bffe ./bffe/cmd/main.go
-
-run: 
+run:
 	./bffe/bin/bffe 
