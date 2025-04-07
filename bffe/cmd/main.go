@@ -1,7 +1,14 @@
 package main
 
-import "fmt"
+import (
+	"log"
+
+	"github.com/o-rensa/jalikod-backend/bffe/cmd/api"
+)
 
 func main() {
-	fmt.Println("Hello world from go")
+	server := api.NewAPIServer(3000)
+	if err := server.Run(); err != nil {
+		log.Fatal(err)
+	}
 }
