@@ -8,6 +8,6 @@ import (
 )
 
 func InitializePostgres() (*sql.DB, error) {
-	pgdb, err := sql.Open("postgres", os.Getenv("PG_DNS"))
+	pgdb, err := sql.Open("postgres", os.Getenv("BFFE_PG_DNS"))
 	return pgdb, err
 }

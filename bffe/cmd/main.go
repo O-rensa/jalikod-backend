@@ -3,6 +3,7 @@ package main
 import (
 	"database/sql"
 	"log"
+	"os"
 
 	"github.com/o-rensa/jalikod-backend/bffe/cmd/api"
 	"github.com/o-rensa/jalikod-backend/bffe/initializers"
@@ -20,7 +21,7 @@ func init() {
 }
 
 func main() {
-	server := api.NewAPIServer(3000, db)
+	server := api.NewAPIServer(os.Getenv("BFFE_PORT"), db)
 	if err := server.Run(); err != nil {
 		log.Fatal(err)
 	}

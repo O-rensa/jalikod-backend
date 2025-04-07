@@ -12,9 +12,9 @@ type APIServer struct {
 	db   *sql.DB
 }
 
-func NewAPIServer(port int, db *sql.DB) *APIServer {
+func NewAPIServer(port string, db *sql.DB) *APIServer {
 	return &APIServer{
-		port: fmt.Sprintf(":%d", port),
+		port: fmt.Sprintf(":%s", port),
 		db:   db,
 	}
 }

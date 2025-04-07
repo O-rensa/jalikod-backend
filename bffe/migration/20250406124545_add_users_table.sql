@@ -28,6 +28,6 @@ CREATE INDEX idx_concurrency_stamp ON bffe.users (concurrency_stamp);
 
 -- +goose Down
 -- +goose StatementBegin
-DROP TABLE IF EXISTS bffe.users;
 DROP INDEX IF EXISTS idx_concurrency_stamp;
+DROP TABLE IF EXISTS bffe.users;
 -- +goose StatementEnd
