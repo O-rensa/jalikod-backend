@@ -1,4 +1,4 @@
-OUTPUT=bffe
+OUTPUT=jalikod-bffe
 
 build:
 	go build -o ./bin/${OUTPUT} ./cmd/main.go

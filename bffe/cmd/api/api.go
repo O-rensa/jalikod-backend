@@ -6,7 +6,9 @@ import (
 	"os"
 
 	"github.com/gofiber/fiber/v3"
-	transport "github.com/o-rensa/jalikod-backend/bffe/internal/transport/handlers/Authorization"
+	"github.com/o-rensa/jalikod-backend/bffe/internal/application"
+	"github.com/o-rensa/jalikod-backend/bffe/internal/infrastructure/database"
+	"github.com/o-rensa/jalikod-backend/bffe/internal/transport/handlers"
 )
 
 type APIServer struct {
@@ -22,13 +24,17 @@ func NewAPIServer(port string, db *sql.DB) *APIServer {
 }
 
 func (s *APIServer) Run() error {
+	// database repository implementation
+	dbr := database.NewDBRepositories(s.db)
+	// app services
+	as := application.NewApplicationServices(dbr)
 	muxConfig := fiber.Config{
 		AppName: os.Getenv("APP_NAME"),
 	}
 	mux := fiber.New(muxConfig)
 	groupedRoutes := mux.Group("/v1")
 
-	authorizationHandler := transport.NewAuthorizationHandlers()
+	authorizationHandler := handlers.NewAuthorizationHandlers(as.AuthorizationService)
 	authorizationHandler.RegisterRoutes(groupedRoutes)
 
 	return mux.Listen(s.port)
