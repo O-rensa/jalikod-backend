@@ -23,11 +23,11 @@ CREATE TABLE bffe.users (
     deleter_userid INT
 );
 
-CREATE INDEX idx_concurrency_stamp ON bffe.users (concurrency_stamp);
+CREATE INDEX idx_concurrency_stamp ON bffe.users(concurrency_stamp);
 -- +goose StatementEnd
 
 -- +goose Down
 -- +goose StatementBegin
 DROP INDEX IF EXISTS idx_concurrency_stamp;
-DROP TABLE IF EXISTS bffe.users;
+DROP TABLE bffe.users;
 -- +goose StatementEnd
