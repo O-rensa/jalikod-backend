@@ -22,7 +22,7 @@ ON DELETE CASCADE;
 ALTER TABLE bffe.refresh_tokens
 DROP CONSTRAINT fk_user;
 
-DROP INDEX IF EXISTS idx_refresh_tokens_token;
+DROP INDEX idx_refresh_tokens_token;
 
 DROP TABLE bffe.refresh_tokens;
 -- +goose StatementEnd
