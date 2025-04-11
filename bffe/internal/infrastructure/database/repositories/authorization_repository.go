@@ -1,6 +1,7 @@
 package dbrepositories
 
 import (
+	"context"
 	"database/sql"
 
 	sqlc "github.com/o-rensa/jalikod-backend/bffe/internal/infrastructure/database/generated"
@@ -17,6 +18,6 @@ func NewAuthorizationDBRepository(db *sql.DB) *AuthorizationDBRepository {
 	return r
 }
 
-func (adbr *AuthorizationDBRepository) Test() string {
-	return "HELLO FROM AUTHORIZATION REPOSITORY"
+func (adbr *AuthorizationDBRepository) GetUserUsername(ctx context.Context, username string) (string, error) {
+	return adbr.db.GetUserUsername(ctx, username)
 }

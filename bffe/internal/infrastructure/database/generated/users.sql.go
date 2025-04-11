@@ -13,16 +13,25 @@ import (
 	"github.com/google/uuid"
 )
 
+const getUserUsername = `-- name: GetUserUsername :one
+SELECT get_user_username($1) AS username
+`
+
+func (q *Queries) GetUserUsername(ctx context.Context, userName string) (string, error) {
+	row := q.db.QueryRowContext(ctx, getUserUsername, userName)
+	var username string
+	err := row.Scan(&username)
+	return username, err
+}
+
 const registerUserAndGetId = `-- name: RegisterUserAndGetId :one
 INSERT INTO bffe.users (
     first_name,
     middle_initial,
     surname,
     name_extension,
-    email,
     username,
     password,
-    password_reset_code,
     security_stamp,
     concurrency_stamp,
     is_deleted,
@@ -34,7 +43,7 @@ INSERT INTO bffe.users (
     deleter_userid
 )
 VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10,
-$11, $12, $13, $14, $15, $16, $17)
+$11, $12, $13, $14, $15)
 RETURNING id
 `
 
@@ -43,10 +52,8 @@ type RegisterUserAndGetIdParams struct {
 	MiddleInitial        sql.NullString
 	Surname              string
 	NameExtension        sql.NullString
-	Email                string
 	Username             string
 	Password             string
-	PasswordResetCode    uuid.NullUUID
 	SecurityStamp        uuid.NullUUID
 	ConcurrencyStamp     uuid.UUID
 	IsDeleted            bool
@@ -64,10 +71,8 @@ func (q *Queries) RegisterUserAndGetId(ctx context.Context, arg RegisterUserAndG
 		arg.MiddleInitial,
 		arg.Surname,
 		arg.NameExtension,
-		arg.Email,
 		arg.Username,
 		arg.Password,
-		arg.PasswordResetCode,
 		arg.SecurityStamp,
 		arg.ConcurrencyStamp,
 		arg.IsDeleted,

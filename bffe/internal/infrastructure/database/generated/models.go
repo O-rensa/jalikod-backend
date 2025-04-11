@@ -26,10 +26,8 @@ type BffeUser struct {
 	MiddleInitial        sql.NullString
 	Surname              string
 	NameExtension        sql.NullString
-	Email                string
 	Username             string
 	Password             string
-	PasswordResetCode    uuid.NullUUID
 	SecurityStamp        uuid.NullUUID
 	ConcurrencyStamp     uuid.UUID
 	IsDeleted            bool

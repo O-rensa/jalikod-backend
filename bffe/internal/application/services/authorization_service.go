@@ -1,6 +1,10 @@
 package appservices
 
-import irepositories "github.com/o-rensa/jalikod-backend/bffe/internal/domain/repositories"
+import (
+	"context"
+
+	irepositories "github.com/o-rensa/jalikod-backend/bffe/internal/domain/repositories"
+)
 
 type AuthorizationService struct {
 	authorizationRepository irepositories.IAuthorizationRepository
@@ -12,6 +16,6 @@ func NewAuthorizationService(authorizationRepository irepositories.IAuthorizatio
 	return as
 }
 
-func (as *AuthorizationService) Hello() string {
-	return as.authorizationRepository.Test()
+func (as *AuthorizationService) Hello(ctx context.Context) (string, error) {
+	return as.authorizationRepository.GetUserUsername(ctx, "randomString")
 }

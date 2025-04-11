@@ -1,13 +1,12 @@
 package handlers
 
 type RegisterRequest struct {
-	FirstName     string  `json:"firstName"`
-	MiddleInitial *string `json:"middleInitial"`
-	Surname       string  `json:"surname"`
-	NameExtension *string `json:"nameExtension"`
-	Email         string  `json:"email"`
-	Username      string  `json:"username"`
-	Password      string  `json:"password"`
+	FirstName     string  `json:"firstName" validate:"required,max=100"`
+	MiddleInitial *string `json:"middleInitial" validate:"max=10"`
+	Surname       string  `json:"surname" validate:"required,max=100"`
+	NameExtension *string `json:"nameExtension" validate:"max=10"`
+	Username      string  `json:"username" validate:"required,max=255"`
+	Password      string  `json:"password" validate:"required,min=6,max=25"`
 }
 
 type RegisterStatus string

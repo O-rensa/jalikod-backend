@@ -3,6 +3,8 @@ package handlers
 import (
 	"github.com/gofiber/fiber/v3"
 	appservices "github.com/o-rensa/jalikod-backend/bffe/internal/application/services"
+	domainutilities "github.com/o-rensa/jalikod-backend/bffe/internal/domain/utility"
+	handlererrors "github.com/o-rensa/jalikod-backend/bffe/internal/transport"
 )
 
 type AuthorizationHandlers struct {
@@ -26,11 +28,20 @@ func (ah *AuthorizationHandlers) loginHandler(c fiber.Ctx) error {
 }
 
 func (ah *AuthorizationHandlers) registerHandler(c fiber.Ctx) error {
-	//var registerReq RegisterRequest
-	message := ah.authorizationService.Hello()
+	var rb RegisterRequest
+	hn := "registerHandler"
 
-	// if err := c.Bind().Body(&registerReq); err != nil {
-	// return c.SendStatus(fiber.StatusBadRequest)
-	// }
-	return c.SendString(message)
+	// check if request can bind to dto
+	if err := c.Bind().Body(&rb); err != nil {
+		handlererrors.BindRequestToDtoError(hn)
+		return fiber.NewError(fiber.StatusBadRequest, err.Error())
+	}
+
+	// validate request
+	if err := domainutilities.Validate.Struct(rb); err != nil {
+		handlererrors.ValidatorError(hn)
+		return fiber.NewError(fiber.StatusBadRequest, err.Error())
+	}
+
+	return nil
 }

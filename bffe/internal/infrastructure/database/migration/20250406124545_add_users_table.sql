@@ -7,10 +7,8 @@ CREATE TABLE bffe.users (
     middle_initial VARCHAR(10),
     surname VARCHAR(100) NOT NULL,
     name_extension VARCHAR(10),
-    email VARCHAR(255) UNIQUE NOT NULL,
     username VARCHAR(255) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
-    password_reset_code UUID,
     security_stamp UUID,
     concurrency_stamp UUID NOT NULL,
 
@@ -24,11 +22,13 @@ CREATE TABLE bffe.users (
     deleter_userid INT
 );
 
-CREATE INDEX idx_concurrency_stamp ON bffe.users(concurrency_stamp);
+CREATE INDEX idx_users_concurrency_stamp ON bffe.users(concurrency_stamp);
+CREATE INDEX idx_users_username ON bffe.users(username);
 -- +goose StatementEnd
 
 -- +goose Down
 -- +goose StatementBegin
-DROP INDEX idx_concurrency_stamp;
+DROP INDEX idx_users_username;
+DROP INDEX idx_users_concurrency_stamp;
 DROP TABLE bffe.users;
 -- +goose StatementEnd
