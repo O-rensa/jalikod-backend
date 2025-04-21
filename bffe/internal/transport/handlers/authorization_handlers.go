@@ -20,7 +20,7 @@ func NewAuthorizationHandlers(authorizationService *appservices.AuthorizationSer
 func (ah *AuthorizationHandlers) RegisterRoutes(route fiber.Router) {
 	authGroup := route.Group("/auth")
 	authGroup.Post("/login", func(c fiber.Ctx) error { return ah.loginHandler(c) })
-	authGroup.Get("/register", func(c fiber.Ctx) error { return ah.registerHandler(c) })
+	authGroup.Post("/register", func(c fiber.Ctx) error { return ah.registerHandler(c) })
 }
 
 func (ah *AuthorizationHandlers) loginHandler(c fiber.Ctx) error {

@@ -5,7 +5,7 @@ type RegisterRequest struct {
 	MiddleInitial *string `json:"middleInitial" validate:"max=10"`
 	Surname       string  `json:"surname" validate:"required,max=100"`
 	NameExtension *string `json:"nameExtension" validate:"max=10"`
-	Username      string  `json:"username" validate:"required,max=255"`
+	Username      string  `json:"username" validate:"required,min=6,max=255"`
 	Password      string  `json:"password" validate:"required,min=6,max=25"`
 }
 
@@ -16,7 +16,14 @@ const (
 	RegisterFail    RegisterStatus = "fail"
 )
 
+type RegisterFailure int
+
+const (
+	UsernameExistFailure        RegisterFailure = 1
+	NotAllowedCharactersFailure RegisterFailure = 2
+)
+
 type RegisterResponse struct {
-	Status      string  `json:"status"`
-	FailMessage *string `json:"FailMessage"`
+	Status      RegisterStatus    `json:"status"`
+	FailMessage []RegisterFailure `json:"failMessage"`
 }
