@@ -32,10 +32,10 @@ func (s *APIServer) Run() error {
 		AppName: os.Getenv("APP_NAME"),
 	}
 	mux := fiber.New(muxConfig)
-	groupedRoutes := mux.Group("/v1")
+	groupedRoutes := mux.Group("/api/v1")
 
-	authorizationHandler := handlers.NewAuthorizationHandlers(as.AuthorizationService)
-	authorizationHandler.RegisterRoutes(groupedRoutes)
+	authenticationHandler := handlers.NewAuthenticationHandlers(as.AuthenticationService)
+	authenticationHandler.RegisterRoutes(groupedRoutes)
 
 	return mux.Listen(s.port)
 }

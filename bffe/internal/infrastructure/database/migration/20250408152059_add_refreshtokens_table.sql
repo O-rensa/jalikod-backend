@@ -12,7 +12,7 @@ CREATE TABLE bffe.refresh_tokens (
 CREATE INDEX idx_refresh_tokens_token on bffe.refresh_tokens(token, is_revoked);
 
 ALTER TABLE bffe.refresh_tokens
-ADD CONSTRAINT fk_user
+ADD CONSTRAINT fk_refresh_tokens_users
 FOREIGN KEY (user_id) REFERENCES bffe.users(id)
 ON DELETE CASCADE;
 -- +goose StatementEnd
@@ -20,7 +20,7 @@ ON DELETE CASCADE;
 -- +goose Down
 -- +goose StatementBegin
 ALTER TABLE bffe.refresh_tokens
-DROP CONSTRAINT fk_user;
+DROP CONSTRAINT fk_refresh_tokens_users;
 
 DROP INDEX idx_refresh_tokens_token;
 

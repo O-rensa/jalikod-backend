@@ -7,11 +7,11 @@ import (
 )
 
 type DBRepositories struct {
-	AuthorizationDBRepository *dbrepositories.AuthorizationDBRepository
+	AuthenticationDBRepository *dbrepositories.AuthenticationDBRepository
 }
 
 func NewDBRepositories(db *sql.DB) *DBRepositories {
 	dbr := &DBRepositories{}
-	dbr.AuthorizationDBRepository = dbrepositories.NewAuthorizationDBRepository(db)
+	dbr.AuthenticationDBRepository = dbrepositories.NewAuthenticationDBRepository(db)
 	return dbr
 }

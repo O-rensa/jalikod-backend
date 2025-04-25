@@ -2,3 +2,4 @@ bffe/migration/makefile
 /bffe/bin
 .env
 bffe/internal/infrastructure/database/migration/makefile
+schema_migrations/makefile

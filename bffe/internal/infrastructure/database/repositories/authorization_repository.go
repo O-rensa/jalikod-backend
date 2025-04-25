@@ -7,17 +7,17 @@ import (
 	sqlc "github.com/o-rensa/jalikod-backend/bffe/internal/infrastructure/database/generated"
 )
 
-type AuthorizationDBRepository struct {
+type AuthenticationDBRepository struct {
 	db *sqlc.Queries
 }
 
-func NewAuthorizationDBRepository(db *sql.DB) *AuthorizationDBRepository {
-	r := &AuthorizationDBRepository{
+func NewAuthenticationDBRepository(db *sql.DB) *AuthenticationDBRepository {
+	r := &AuthenticationDBRepository{
 		db: sqlc.New((db)),
 	}
 	return r
 }
 
-func (adbr *AuthorizationDBRepository) GetUserUsername(ctx context.Context, username string) (string, error) {
+func (adbr *AuthenticationDBRepository) GetUserUsername(ctx context.Context, username string) (string, error) {
 	return adbr.db.GetUserUsername(ctx, username)
 }

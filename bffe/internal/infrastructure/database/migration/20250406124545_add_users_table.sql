@@ -1,6 +1,5 @@
 -- +goose Up
 -- +goose StatementBegin
-CREATE SCHEMA IF NOT EXISTS bffe;
 CREATE TABLE bffe.users (
     id SERIAL PRIMARY KEY,
     first_name VARCHAR(100) NOT NULL,

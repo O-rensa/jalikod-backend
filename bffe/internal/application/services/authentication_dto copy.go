@@ -1,4 +1,4 @@
-package handlers
+package appservices
 
 type RegisterRequest struct {
 	FirstName     string  `json:"firstName" validate:"required,max=100"`

@@ -6,11 +6,11 @@ import (
 )
 
 type AppServices struct {
-	AuthorizationService *appservices.AuthorizationService
+	AuthenticationService *appservices.AuthenticationService
 }
 
 func NewApplicationServices(dbRepositories *database.DBRepositories) *AppServices {
 	as := &AppServices{}
-	as.AuthorizationService = appservices.NewAuthorizationService(dbRepositories.AuthorizationDBRepository)
+	as.AuthenticationService = appservices.NewAuthenticationService(dbRepositories.AuthenticationDBRepository)
 	return as
 }
