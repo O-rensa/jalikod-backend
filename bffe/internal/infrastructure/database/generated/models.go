@@ -20,6 +20,19 @@ type BffeRefreshToken struct {
 	IsRevoked                   bool
 }
 
+type BffeRole struct {
+	ID                   int32
+	RoleName             string
+	IsDeleted            bool
+	IsActive             bool
+	CreationTime         time.Time
+	CreatorUserid        int32
+	LastModificationTime sql.NullTime
+	LastModifierUserid   sql.NullInt32
+	DeletionTime         sql.NullTime
+	DeleterUserid        sql.NullInt32
+}
+
 type BffeUser struct {
 	ID                   int32
 	FirstName            string
@@ -39,4 +52,10 @@ type BffeUser struct {
 	DeletionTime         sql.NullTime
 	DeleterUserid        sql.NullInt32
 	PasswordResetExpiry  sql.NullTime
+}
+
+type BffeUserRole struct {
+	ID     int32
+	Userid int32
+	Roleid int32
 }

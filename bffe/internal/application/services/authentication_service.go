@@ -16,8 +16,8 @@ func NewAuthenticationService(authenticationRepository irepositories.IAuthentica
 	return as
 }
 
-func (as *AuthenticationService) Hello(ctx context.Context) (string, error) {
-	return as.authenticationRepository.GetUserUsername(ctx, "randomString")
+func (as *AuthenticationService) CheckUsername(ctx context.Context, username string) (string, error) {
+	return as.authenticationRepository.GetUserUsername(ctx, username)
 }
 
 func (as *AuthenticationService) RegisterUser(ctx context.Context) (*RegisterResponse, error) {

@@ -45,6 +45,15 @@ func (ah *AuthenticationHandlers) registerHandler(c fiber.Ctx) error {
 
 	var ctx = c.Context()
 
+	// check if username already exists
+	_, err := ah.authenticationService.CheckUsername(ctx, rb.Username)
+	if err == nil { // if no error, it means it found an existing username
+		response := appservices.RegisterResponse{}
+		response.Status = appservices.RegisterFail
+		response.FailMessage = []appservices.RegisterFailure{1}
+		return c.JSON(response)
+	}
+
 	// send to service
 	ah.authenticationService.RegisterUser(ctx)
 
