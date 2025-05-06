@@ -20,6 +20,8 @@ func NewUser(id int32, username string) *User {
 	u := &User{}
 	u.id = id
 	u.username = username
+	u.IsDeleted = false
+	u.IsActive = true
 	return u
 }
 

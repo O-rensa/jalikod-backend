@@ -8,5 +8,5 @@ import (
 
 type IAuthenticationRepository interface {
 	GetUserUsername(ctx context.Context, username string) (string, error)
-	RegisterUser(ctx context.Context, usr domainaggregates.User) (int32, error)
+	RegisterUser(ctx context.Context, usr domainaggregates.User, hashedpw string) (int32, error)
 }

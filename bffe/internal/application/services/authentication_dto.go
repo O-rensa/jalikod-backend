@@ -19,11 +19,13 @@ const (
 type RegisterFailure int
 
 const (
+	Other                       RegisterFailure = 0
 	UsernameExistFailure        RegisterFailure = 1
 	NotAllowedCharactersFailure RegisterFailure = 2
 )
 
 type RegisterResponse struct {
-	Status      RegisterStatus    `json:"status"`
-	FailMessage []RegisterFailure `json:"failMessage"`
+	Status       RegisterStatus    `json:"status"`
+	FailMessage  []RegisterFailure `json:"failMessage"`
+	ErrorMessage *string           `json:"errorMessage"`
 }

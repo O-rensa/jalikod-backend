@@ -28,17 +28,17 @@ func (ah *AuthenticationHandlers) loginHandler(c fiber.Ctx) error {
 }
 
 func (ah *AuthenticationHandlers) registerHandler(c fiber.Ctx) error {
-	var rb appservices.RegisterRequest
+	var req appservices.RegisterRequest
 	hn := "registerHandler"
 
 	// check if request can bind to dto
-	if err := c.Bind().Body(&rb); err != nil {
+	if err := c.Bind().Body(&req); err != nil {
 		handlererrors.BindRequestToDtoError(hn)
 		return fiber.NewError(fiber.StatusBadRequest, err.Error())
 	}
 
 	// validate request
-	if err := domainutilities.Validate.Struct(rb); err != nil {
+	if err := domainutilities.Validate.Struct(req); err != nil {
 		handlererrors.ValidatorError(hn)
 		return fiber.NewError(fiber.StatusBadRequest, err.Error())
 	}
@@ -46,7 +46,7 @@ func (ah *AuthenticationHandlers) registerHandler(c fiber.Ctx) error {
 	var ctx = c.Context()
 
 	// check if username already exists
-	_, err := ah.authenticationService.CheckUsername(ctx, rb.Username)
+	_, err := ah.authenticationService.CheckUsername(ctx, req.Username)
 	if err == nil { // if no error, it means it found an existing username
 		response := appservices.RegisterResponse{}
 		response.Status = appservices.RegisterFail
@@ -55,7 +55,7 @@ func (ah *AuthenticationHandlers) registerHandler(c fiber.Ctx) error {
 	}
 
 	// send to service
-	ah.authenticationService.RegisterUser(ctx)
+	ah.authenticationService.RegisterUser(ctx, req)
 
 	return nil
 }
