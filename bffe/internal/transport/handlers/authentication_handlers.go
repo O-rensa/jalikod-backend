@@ -51,11 +51,16 @@ func (ah *AuthenticationHandlers) registerHandler(c fiber.Ctx) error {
 		response := appservices.RegisterResponse{}
 		response.Status = appservices.RegisterFail
 		response.FailMessage = []appservices.RegisterFailure{1}
-		return c.JSON(response)
+		c.JSON(response)
+		return c.SendStatus(fiber.StatusOK)
 	}
 
 	// send to service
-	ah.authenticationService.RegisterUser(ctx, req)
-
-	return nil
+	stat, reg_stat, err := ah.authenticationService.RegisterUser(ctx, req)
+	if err != nil {
+		c.SendString(err.Error())
+		c.SendStatus(stat)
+	}
+	c.JSON(reg_stat)
+	return c.SendStatus(stat)
 }
